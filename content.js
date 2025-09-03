@@ -367,13 +367,12 @@ window.onload = () => {
                                                     
                                                 });
                                                 // get CS Watch message
-                                                let csWatchUrl = `https://cswatch.in/api/players/${steamIdMapping[player['id']]}`
-                                                fetch(`https://whateverorigin.org/get?url=${encodeURIComponent(csWatchUrl)}`)
+                                                fetch(`https://whateverorigin.org/get?url=${encodeURIComponent(`https://cswatch.in/api/players/${steamIdMapping[player['id']]}`)}`)
                                                 .then(r => r.json())
                                                 .then(r => JSON.parse(r['contents']))
                                                 .then(r => {
                                                     let csWatchContainer = document.getElementById(`cs-watch-${player['id']}`)
-                                                    csWatchContainer.innerHTML = `<span style="color: #a7a7a7; font-size: 12px;"><a style="color: aqua;" target="_blank" href="${csWatchUrl}">CSW</a>: ${r['csWatchAnalysis']['message']}</span>`
+                                                    csWatchContainer.innerHTML = `<span style="color: #a7a7a7; font-size: 12px;"><a style="color: aqua;" target="_blank" href="https://cswatch.in/player/${steamIdMapping[player['id']]}">CSW</a>: ${r['csWatchAnalysis']['message']}</span>`
                                                 })
                                             })
                                         }); 
