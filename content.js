@@ -282,9 +282,6 @@ window.onload = () => {
                                                     commentsContainer.setAttribute('id', `suspicious-comments-${player['id']}`)
                                                     divs[i].after(commentsContainer)
 
-                                                    let csWatchContainer = divs[i].cloneNode()
-                                                    csWatchContainer.setAttribute('id', `cs-watch-${player['id']}`)
-                                                    divs[i].after(csWatchContainer)
                                                     break
                                                 }
                                             }
@@ -366,14 +363,6 @@ window.onload = () => {
                                                     }
                                                     
                                                 });
-                                                // get CS Watch message
-                                                fetch(`https://whateverorigin.org/get?url=${encodeURIComponent(`https://cswatch.in/api/players/${steamIdMapping[player['id']]}`)}`)
-                                                .then(r => r.json())
-                                                .then(r => JSON.parse(r['contents']))
-                                                .then(r => {
-                                                    let csWatchContainer = document.getElementById(`cs-watch-${player['id']}`)
-                                                    csWatchContainer.innerHTML = `<span style="color: #a7a7a7; font-size: 12px;"><a style="color: aqua;" target="_blank" href="https://cswatch.in/player/${steamIdMapping[player['id']]}">CSW</a>: ${r['csWatchAnalysis']['message']}</span>`
-                                                })
                                             })
                                         }); 
                                     });
