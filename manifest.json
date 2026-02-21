@@ -11,18 +11,17 @@
     ],
     "permissions": [
         "tabs",
-        "offscreen"
+        "offscreen",
+        "storage"
     ],
     "host_permissions": [
         "https://steamcommunity.com/"
     ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Faceit Match Alert Settings"
+    },
     "background": {
         "service_worker": "background.js"
-    },
-    "web_accessible_resources": [
-        {
-            "resources": ["alert.mp3"],
-            "matches": ["https://www.faceit.com/*"]
-        }
-    ]
+    }
 }

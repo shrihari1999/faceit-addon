@@ -13,15 +13,16 @@ async function hasOffscreenDocument() {
     }
 }
 
-async function playAlert(){
+async function playAlert(dataUrl){
     let cannotCreateOffscreenDocument = await hasOffscreenDocument()
     if(!cannotCreateOffscreenDocument){
-        chrome.offscreen.createDocument({
+        await chrome.offscreen.createDocument({
             url: chrome.runtime.getURL('audio.html'),
             reasons: ['AUDIO_PLAYBACK'],
             justification: 'notification',
         });
     }
+    chrome.runtime.sendMessage({ type: 'play-audio', dataUrl });
 }
 
 async function getSteamComments(profileId, isFirst, totalPages=null){
@@ -71,13 +72,22 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if(request.type == 'alert'){
             if(request.data == 'play'){
-                playAlert()
+                chrome.storage.local.get('customAudioDataUrl', (result) => {
+                    if (result.customAudioDataUrl) {
+                        chrome.tabs.update(sender.tab.id, { muted: true });
+                        playAlert(result.customAudioDataUrl);
+                    }
+                });
             }
             else if(request.data == 'mute'){
-                let tabId = sender.tab.id
-                chrome.tabs.get(tabId, async (tab) => {
-                    let muted = true
-                    chrome.tabs.update(tabId, { muted });
+                chrome.storage.local.get('customAudioDataUrl', (result) => {
+                    if (result.customAudioDataUrl) {
+                        let tabId = sender.tab.id
+                        chrome.tabs.get(tabId, async (tab) => {
+                            let muted = true
+                            chrome.tabs.update(tabId, { muted });
+                        });
+                    }
                 });
             }
             else{

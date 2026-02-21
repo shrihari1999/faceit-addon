@@ -1,8 +1,11 @@
 const audio = document.getElementById('audio');
-audio.src = 'alert.mp3';
 
-audio.onended = () => {
-  chrome.runtime.sendMessage({'type': 'alert', 'data': 'close'});
-};
-
-audio.play();
+chrome.runtime.onMessage.addListener((request) => {
+    if (request.type === 'play-audio') {
+        audio.src = request.dataUrl;
+        audio.onended = () => {
+            chrome.runtime.sendMessage({'type': 'alert', 'data': 'close'});
+        };
+        audio.play();
+    }
+});
