@@ -14,7 +14,7 @@ All features can be individually toggled on or off from the extension popup.
 
 ## Installation
 
-Install from the [Chrome Web Store](#).
+Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/faceit-add-on/gmpbgomjfgehibpdgbohjhiihohchhhk).
 
 ## Configuration
 
@@ -33,8 +33,7 @@ Click the extension icon in your browser toolbar to open settings. From there yo
 
 - Steam profile analysis depends on the opponent's Steam profile privacy settings
 - Match history is based on your most recent 1000 matches
-- Only works on the FACEIT website (www.faceit.com)
 
 ## Disclaimer
 
-This extension is not officially affiliated with FACEIT. Use at your own discretion and in accordance with FACEIT's terms of service.
+This extension is not officially affiliated with FACEIT. Use in accordance with FACEIT's terms of service.
