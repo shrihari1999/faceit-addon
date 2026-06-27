@@ -27,21 +27,31 @@ function updateSuspiciousComments(playerId, text){
     commentsContainer.innerHTML = `<span style="color: #a7a7a7; font-size: 12px;">Sus comments: ${text}</span>`
 }
 
+function hideAds(){
+    document.querySelectorAll('[class^="style__AdPlacementWrapper"], [class^="style__AdPlaceholderHolder"]').forEach(ad => {
+        ad.style.display = 'none'
+    })
+}
+
 window.onload = () => {
     chrome.storage.local.get(
-        ['autoAccept', 'showHistory', 'showMaxLevel', 'showSuspiciousComments'],
+        ['autoAccept', 'showHistory', 'showMaxLevel', 'showSuspiciousComments', 'hideAds'],
         (stored) => {
             const settings = {
                 autoAccept:            stored.autoAccept            !== undefined ? stored.autoAccept            : true,
                 showHistory:           stored.showHistory           !== undefined ? stored.showHistory           : true,
                 showMaxLevel:          stored.showMaxLevel          !== undefined ? stored.showMaxLevel          : true,
                 showSuspiciousComments:stored.showSuspiciousComments!== undefined ? stored.showSuspiciousComments: true,
+                hideAds:               stored.hideAds               !== undefined ? stored.hideAds               : true,
             };
 
             // wait for match
             chrome.runtime.sendMessage({'type': 'alert', 'data': 'mute'});
             let shield = false
             var mutationObserver = new MutationObserver(function (){
+                if(settings.hideAds){
+                    hideAds()
+                }
                 let matchCame = false
                 if(document.querySelector('div[role="dialog"]')){
                     let buttons = document.querySelectorAll('div[role="dialog"] button')
@@ -75,6 +85,9 @@ window.onload = () => {
                 }
             })
             mutationObserver.observe(document.body, {attributes: true, subtree: true, childList: true, characterData: true})
+            if(settings.hideAds){
+                hideAds()
+            }
 
             let countShield = false
             let historyShield = false

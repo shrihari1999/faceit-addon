@@ -9,6 +9,7 @@ const autoAcceptToggle = document.getElementById('autoAccept');
 const showHistoryToggle = document.getElementById('showHistory');
 const showMaxLevelToggle = document.getElementById('showMaxLevel');
 const showSuspiciousCommentsToggle = document.getElementById('showSuspiciousComments');
+const hideAdsToggle = document.getElementById('hideAds');
 
 const MAX_DURATION_SECONDS = 7;
 
@@ -18,6 +19,7 @@ const DEFAULTS = {
   showHistory: true,
   showMaxLevel: true,
   showSuspiciousComments: true,
+  hideAds: true,
 };
 
 function setAudioActive(active, fileName) {
@@ -34,7 +36,7 @@ function setStatus(message, type) {
 
 // Load all settings on open
 chrome.storage.local.get(
-  ['customAudioDataUrl', 'customAudioFileName', 'audioEnabled', 'autoAccept', 'showHistory', 'showMaxLevel', 'showSuspiciousComments'],
+  ['customAudioDataUrl', 'customAudioFileName', 'audioEnabled', 'autoAccept', 'showHistory', 'showMaxLevel', 'showSuspiciousComments', 'hideAds'],
   (result) => {
     const audioEnabled = result.audioEnabled !== undefined ? result.audioEnabled : DEFAULTS.audioEnabled;
     audioEnabledToggle.checked = audioEnabled;
@@ -45,6 +47,7 @@ chrome.storage.local.get(
     showHistoryToggle.checked = result.showHistory !== undefined ? result.showHistory : DEFAULTS.showHistory;
     showMaxLevelToggle.checked = result.showMaxLevel !== undefined ? result.showMaxLevel : DEFAULTS.showMaxLevel;
     showSuspiciousCommentsToggle.checked = result.showSuspiciousComments !== undefined ? result.showSuspiciousComments : DEFAULTS.showSuspiciousComments;
+    hideAdsToggle.checked = result.hideAds !== undefined ? result.hideAds : DEFAULTS.hideAds;
   }
 );
 
@@ -67,6 +70,9 @@ showMaxLevelToggle.addEventListener('change', () => {
 });
 showSuspiciousCommentsToggle.addEventListener('change', () => {
   chrome.storage.local.set({ showSuspiciousComments: showSuspiciousCommentsToggle.checked });
+});
+hideAdsToggle.addEventListener('change', () => {
+  chrome.storage.local.set({ hideAds: hideAdsToggle.checked });
 });
 
 // Audio file upload
