@@ -9,6 +9,7 @@ A Chrome/Chromium browser extension that enhances your FACEIT gaming experience 
 - **Match History vs Opponents**: See your win/loss record against each opponent in the current match, with links to previous match rooms
 - **Max Skill Level**: Displays the highest FACEIT level each opponent has ever reached
 - **Suspicious Steam Comments**: Scans opponent Steam profiles for comments containing keywords like "-rep", "wall", "hack", "cheat"
+- **Hide Ads**: Removes ad placements from FACEIT pages, keeping them hidden through page resizes and re-renders
 
 All features can be individually toggled on or off from the extension popup.
 
